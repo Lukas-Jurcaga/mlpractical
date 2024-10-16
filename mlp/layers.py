@@ -627,6 +627,7 @@ class RadialBasisFunctionLayer(Layer):
     def __repr__(self):
         return 'RadialBasisFunctionLayer(grid_dim={0})'.format(self.grid_dim)
 
+# TODO: Dropout layer
 class DropoutLayer(StochasticLayer):
     """Layer which stochastically drops input dimensions in its output."""
 

@@ -4,6 +4,7 @@ seed = 22102017
 rng = np.random.RandomState(seed)
 
 
+# TODO: L1 penalty technique
 class L1Penalty(object):
     """L1 parameter penalty.
 
@@ -47,6 +48,7 @@ class L1Penalty(object):
         return 'L1Penalty({0})'.format(self.coefficient)
 
 
+# TODO: L2 penalty technique
 class L2Penalty(object):
     """L1 parameter penalty.
 
