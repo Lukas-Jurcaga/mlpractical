@@ -627,7 +627,6 @@ class RadialBasisFunctionLayer(Layer):
     def __repr__(self):
         return 'RadialBasisFunctionLayer(grid_dim={0})'.format(self.grid_dim)
 
-# TODO: Dropout layer
 class DropoutLayer(StochasticLayer):
     """Layer which stochastically drops input dimensions in its output."""
 
@@ -646,6 +645,7 @@ class DropoutLayer(StochasticLayer):
         self.incl_prob = incl_prob
         self.share_across_batch = share_across_batch
         self.rng = rng
+        self.mask = None
 
     def fprop(self, inputs, stochastic=True):
         """Forward propagates activations through the layer transformation.
@@ -662,7 +662,18 @@ class DropoutLayer(StochasticLayer):
         Returns:
             outputs: Array of layer outputs of shape (batch_size, output_dim).
         """
-        raise NotImplementedError
+        if stochastic:
+            if self.share_across_batch:
+                # Generate uniform random values and apply the threshold
+                uniform_random = self.rng.uniform(low=0.0, high=1.0, size=inputs[1].shape)
+            else:
+                uniform_random = self.rng.uniform(low=0.0, high=1.0, size=inputs.shape)
+            self.mask = (uniform_random < self.incl_prob).astype(np.float32)
+            outputs = inputs * self.mask  # Apply mask
+        else:
+            # Test mode, scale inputs to reflect training mode dropout
+            outputs = inputs * self.incl_prob
+        return outputs
 
     def bprop(self, inputs, outputs, grads_wrt_outputs):
         """Back propagates gradients through a layer.
@@ -682,7 +693,7 @@ class DropoutLayer(StochasticLayer):
             Array of gradients with respect to the layer inputs of shape
             (batch_size, input_dim).
         """
-        raise NotImplementedError
+        return self.mask * grads_wrt_outputs
 
     def __repr__(self):
         return 'DropoutLayer(incl_prob={0:.1f})'.format(self.incl_prob)
