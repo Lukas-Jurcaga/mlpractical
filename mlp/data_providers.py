@@ -296,9 +296,8 @@ class EMNISTDataProvider(DataProvider):
         (num_data, num_classes)
 
         """
-        
-        raise NotImplementedError
-  
+        coded_targets = self.to_one_of_k(int_targets)
+        return (1 - alpha) * coded_targets + alpha / (coded_targets[0].size - 1) * np.abs(coded_targets - 1)
     
 
 class MetOfficeDataProvider(DataProvider):
