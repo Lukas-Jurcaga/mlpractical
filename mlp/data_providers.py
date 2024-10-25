@@ -280,7 +280,6 @@ class EMNISTDataProvider(DataProvider):
         one_of_k_targets[range(int_targets.shape[0]), int_targets] = 1
         return one_of_k_targets
 
-    # TODO: Label smoothing
     def label_smoothing(self, int_targets, alpha=0.1):
         """Converts integer coded class target to 1 of K coded targets with label smoothing.
 
