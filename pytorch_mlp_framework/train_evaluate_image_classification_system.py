@@ -3,11 +3,14 @@ import torch
 from torch.utils.data import DataLoader
 from torchvision import transforms
 
+import sys
+import os
+sys.path.append(os.path.abspath("/home/lukasjurcaga/mlpractical"))
+
 import mlp.data_providers as data_providers
 from pytorch_mlp_framework.arg_extractor import get_args
 from pytorch_mlp_framework.experiment_builder import ExperimentBuilder
 from pytorch_mlp_framework.model_architectures import *
-import os 
 # os.environ["CUDA_VISIBLE_DEVICES"]="0"
 
 args = get_args()  # get arguments from command line
