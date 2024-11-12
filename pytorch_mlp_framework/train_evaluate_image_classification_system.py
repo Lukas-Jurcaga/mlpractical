@@ -5,7 +5,8 @@ from torchvision import transforms
 
 import sys
 import os
-sys.path.append(os.path.abspath("/home/lukasjurcaga/mlpractical"))
+# sys.path.append(os.path.abspath("/home/lukasjurcaga/mlpractical"))
+sys.path.append(os.path.abspath("/Users/lukasjurcaga/PycharmProjects/mlpractical"))
 
 import mlp.data_providers as data_providers
 from pytorch_mlp_framework.arg_extractor import get_args
