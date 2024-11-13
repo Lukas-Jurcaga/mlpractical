@@ -151,9 +151,17 @@ class ExperimentBuilder(nn.Module):
 
         for name, param in named_parameters:
             curr_layer = name.split('.')
+
             if len(curr_layer) > 2:
+                if curr_layer[4] == 'bias':
+                    print(curr_layer[4])
+                    continue
                 curr_layer = curr_layer[1] + '_' + curr_layer[3]
+
             else:
+                if curr_layer[1] == 'bias':
+                    print(curr_layer[1])
+                    continue
                 curr_layer = curr_layer[0] + '_' + curr_layer[1]
                 '''
                 if curr_layer[1] != 'bias':
@@ -165,7 +173,7 @@ class ExperimentBuilder(nn.Module):
 
 
             abs_grad = param.grad.abs().mean().item()
-            print(f"Layer: {name}, Absolute Mean of Gradients: {abs_grad}")
+            print(f"Layer: {curr_layer}, Absolute Mean of Gradients: {abs_grad}")
 
             '''
             if len(layers) > 0 and layers[-1] == curr_layer:
