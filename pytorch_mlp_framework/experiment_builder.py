@@ -167,12 +167,17 @@ class ExperimentBuilder(nn.Module):
             abs_grad = param.grad.abs().mean().item()
             print(f"Layer: {name}, Absolute Mean of Gradients: {abs_grad}")
 
+            '''
             if len(layers) > 0 and layers[-1] == curr_layer:
                 all_grads[-1] += abs_grad
                 all_grads[-1] /= 2
             else:
                 layers.append(curr_layer)
                 all_grads.append(abs_grad)
+            '''
+
+            layers.append(curr_layer)
+            all_grads.append(abs_grad)
 
         # For debugging
         #for i in range(len(layers)):
