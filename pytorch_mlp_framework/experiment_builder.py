@@ -154,7 +154,11 @@ class ExperimentBuilder(nn.Module):
             if len(curr_layer) > 2:
                 curr_layer = curr_layer[1] + '_' + curr_layer[3]
             else:
-                curr_layer = curr_layer[0]
+                if curr_layer[1] != 'bias':
+                    curr_layer = curr_layer[0] + '_' + curr_layer[1]
+                else:
+                    print(curr_layer[0] + '_' + curr_layer[1])
+                    break
 
             abs_grad = param.grad.abs().mean().item()
 
