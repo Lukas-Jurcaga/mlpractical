@@ -160,7 +160,7 @@ class ExperimentBuilder(nn.Module):
             else:
                 if curr_layer[1] == 'bias':
                     continue
-                curr_layer = curr_layer[0] + '_' + curr_layer[1]
+                curr_layer =  curr_layer[1] + '_' + curr_layer[0]
                 '''
                 if curr_layer[1] != 'bias':
                     curr_layer = curr_layer[0] + '_' + curr_layer[1]
