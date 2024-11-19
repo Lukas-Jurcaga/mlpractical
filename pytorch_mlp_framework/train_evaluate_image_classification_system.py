@@ -7,7 +7,7 @@ import sys
 import os
 sys.path.append(os.path.abspath("/home/lukasjurcaga/mlpractical"))
 # sys.path.append(os.path.abspath("/Users/lukasjurcaga/PycharmProjects/mlpractical"))
-sys.path.append("C:\\Users\\ljurc\\PycharmProjects\\mlpractical")
+# sys.path.append("C:\\Users\\ljurc\\PycharmProjects\\mlpractical")
 
 import mlp.data_providers as data_providers
 from pytorch_mlp_framework.arg_extractor import get_args
@@ -52,6 +52,9 @@ if args.block_type == 'conv_block':
 elif args.block_type == 'empty_block':
     processing_block_type = EmptyBlock
     dim_reduction_block_type = EmptyBlock
+elif args.block_type == 'conv_block_bn':
+    processing_block_type = ConvolutionalProcessingBlockBN
+    dim_reduction_block_type = ConvolutionalDimensionalityReductionBlockBN
 else:
     raise ModuleNotFoundError
 
