@@ -5,8 +5,8 @@ from torchvision import transforms
 
 import sys
 import os
-sys.path.append(os.path.abspath("/home/lukasjurcaga/mlpractical"))
-# sys.path.append(os.path.abspath("/Users/lukasjurcaga/PycharmProjects/mlpractical"))
+# sys.path.append(os.path.abspath("/home/lukasjurcaga/mlpractical"))
+sys.path.append(os.path.abspath("/Users/lukasjurcaga/PycharmProjects/mlpractical"))
 # sys.path.append("C:\\Users\\ljurc\\PycharmProjects\\mlpractical")
 
 import mlp.data_providers as data_providers
@@ -74,6 +74,7 @@ conv_experiment = ExperimentBuilder(network_model=custom_conv_net,
                                     weight_decay_coefficient=args.weight_decay_coefficient,
                                     use_gpu=args.use_gpu,
                                     continue_from_epoch=args.continue_from_epoch,
+                                    learning_rate=args.lr,
                                     train_data=train_data_loader, val_data=val_data_loader,
                                     test_data=test_data_loader)  # build an experiment object
 experiment_metrics, test_metrics = conv_experiment.run_experiment()  # run experiment and return experiment metrics
