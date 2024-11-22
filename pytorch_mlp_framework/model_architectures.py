@@ -380,10 +380,12 @@ class ConvolutionalProcessingBlockBN(nn.Module):
     def forward(self, x):
         out = x
 
+        # First forward pass with batch normalisation
         out = self.layer_dict['conv_0'].forward(out)
         out = self.layer_dict['bn_0'].forward(out)
         out = F.leaky_relu(out)
 
+        # Second forward pass with batch normalisation
         out = self.layer_dict['conv_1'].forward(out)
         out = self.layer_dict['bn_1'].forward(out)
         out = F.leaky_relu(out)
@@ -434,12 +436,15 @@ class ConvolutionalDimensionalityReductionBlockBN(nn.Module):
     def forward(self, x):
         out = x
 
+        # First forward pass with batch normalisation
         out = self.layer_dict['conv_0'].forward(out)
         out = self.layer_dict['bn_0'].forward(out)
         out = F.leaky_relu(out)
 
+        # Pooling
         out = F.avg_pool2d(out, self.reduction_factor)
 
+        # Second forward pass with batch normalisation
         out = self.layer_dict['conv_1'].forward(out)
         out = self.layer_dict['bn_1'].forward(out)
         out = F.leaky_relu(out)
@@ -489,13 +494,16 @@ class ConvolutionalProcessingBlockResBN(nn.Module):
         residual = x
         out = x
 
+        # First forward pass with batch normalisation
         out = self.layer_dict['conv_0'].forward(out)
         out = self.layer_dict['bn_0'].forward(out)
         out = F.leaky_relu(out)
 
+        # Second forward pass with batch normalisation
         out = self.layer_dict['conv_1'].forward(out)
         out = self.layer_dict['bn_1'].forward(out)
 
+        # Adding residual
         out += residual
         out = F.leaky_relu(out)
 

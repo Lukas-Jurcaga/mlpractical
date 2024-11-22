@@ -5,7 +5,7 @@ from torchvision import transforms
 
 import sys
 import os
-#sys.path.append(os.path.abspath("/home/lukasjurcaga/mlpractical"))
+# sys.path.append(os.path.abspath("/home/lukasjurcaga/mlpractical"))
 # sys.path.append(os.path.abspath("/Users/lukasjurcaga/PycharmProjects/mlpractical"))
 # sys.path.append("C:\\Users\\ljurc\\PycharmProjects\\mlpractical")
 

@@ -135,8 +135,7 @@ class ExperimentBuilder(nn.Module):
         plt.tight_layout()
         
         return plt
-        
-    
+
     def plot_grad_flow(self, named_parameters):
         """
         The function is being called in Line 298 of this file. 
@@ -145,51 +144,26 @@ class ExperimentBuilder(nn.Module):
         """
         all_grads = []
         layers = []
-        
-        """
-        Complete the code in the block below to collect absolute mean of the gradients for each layer in all_grads with the             layer names in layers.
-        """
 
         for name, param in named_parameters:
             curr_layer = name.split('.')
 
+            # Skipping bias & modifying final layer name
             if len(curr_layer) > 2:
                 if curr_layer[4] == 'bias':
                     continue
                 curr_layer = curr_layer[1] + '_' + curr_layer[3]
-
             else:
                 if curr_layer[1] == 'bias':
                     continue
-                curr_layer =  curr_layer[1] + '_' + curr_layer[0]
-                '''
-                if curr_layer[1] != 'bias':
-                    curr_layer = curr_layer[0] + '_' + curr_layer[1]
-                else:
-                    print(curr_layer[0] + '_' + curr_layer[1])
-                    break
-                '''
+                curr_layer = curr_layer[1] + '_' + curr_layer[0]
 
-
+            # Getting sum of absolute gradients for layer
             abs_grad = param.grad.abs().mean().item()
-            # print(f"Layer: {curr_layer}, Absolute Mean of Gradients: {abs_grad}")
-
-            '''
-            if len(layers) > 0 and layers[-1] == curr_layer:
-                all_grads[-1] += abs_grad
-                all_grads[-1] /= 2
-            else:
-                layers.append(curr_layer)
-                all_grads.append(abs_grad)
-            '''
 
             layers.append(curr_layer)
             all_grads.append(abs_grad)
 
-        # For debugging
-        #for i in range(len(layers)):
-            #print(f"Layer: {layers[i]}, Absolute Mean of Gradients: {all_grads[i]}")
-        
         plt = self.plot_func_def(all_grads, layers)
         
         return plt
